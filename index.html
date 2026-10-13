@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerPath AI | Find your direction</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">✦</span> CareerPath <span class="brand-ai">AI</span></a>
+    <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <nav class="nav-links">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('careers') }}">Explore careers</a>
+      {% if user %}
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a class="nav-cta" href="{{ url_for('logout') }}">Log out</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">Log in</a>
+        <a class="nav-cta" href="{{ url_for('register') }}">Get started</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="eyebrow-dot"></span> YOUR FUTURE, WITH A PLAN</span>
+        <h1>Your potential.<br><span>Your path.</span></h1>
+        <p class="hero-text">Discover career options that match your interests, build the right skills, and take your next step with confidence.</p>
+        <div class="hero-actions">
+          {% if user %}
+            <a class="button button-primary" href="{{ url_for('recommend') }}">Find my career <span>→</span></a>
+            <a class="button button-secondary" href="{{ url_for('dashboard') }}">My dashboard</a>
+          {% else %}
+            <a class="button button-primary" href="{{ url_for('register') }}">Start your journey <span>→</span></a>
+            <a class="button button-secondary" href="{{ url_for('careers') }}">Explore careers</a>
+          {% endif %}
+        </div>
+        <div class="trust-line"><span class="avatar-stack"><i>✦</i><i>↗</i><i>◎</i></span><span>Small steps today. Big possibilities tomorrow.</span></div>
+      </div>
+      <div class="hero-art" aria-label="Illustration of a career growth chart">
+        <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+        <div class="art-card">
+          <div class="art-card-top"><span class="tiny-label">YOUR GROWTH PLAN</span><span class="live-dot"></span></div>
+          <div class="art-heading">Progress looks good.</div>
+          <div class="chart-area">
+            <div class="chart-grid"></div>
+            <svg viewBox="0 0 360 150" role="img" aria-label="An upward trend line">
+              <defs><linearGradient id="areaFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#7c6cf4" stop-opacity=".28"/><stop offset="100%" stop-color="#7c6cf4" stop-opacity="0"/></linearGradient></defs>
+              <path d="M8 128 C48 116 57 99 91 105 S135 76 166 86 S211 46 243 61 S292 18 350 12 L350 150 L8 150 Z" fill="url(#areaFill)"/>
+              <path d="M8 128 C48 116 57 99 91 105 S135 76 166 86 S211 46 243 61 S292 18 350 12" fill="none" stroke="#8274f6" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="350" cy="12" r="6" fill="#8274f6" stroke="#fff" stroke-width="3"/>
+            </svg>
+          </div>
+          <div class="chart-footer"><span><b>01</b> Learn</span><span><b>02</b> Practice</span><span><b>03</b> Grow</span></div>
+        </div>
+        <div class="floating-chip chip-top"><span class="chip-icon purple">✧</span><span><b>Find your fit</b><small>Based on your interests</small></span></div>
+        <div class="floating-chip chip-bottom"><span class="chip-icon mint">✓</span><span><b>One step at a time</b><small>Your personal roadmap</small></span></div>
+        <div class="sparkle sparkle-one">✳</div><div class="sparkle sparkle-two">✦</div>
+      </div>
+    </section>
+
+    <section class="stats-strip">
+      <div><span class="stat-icon">⌕</span><p><b>Discover</b><small>Explore your strengths</small></p></div>
+      <div><span class="stat-icon">↗</span><p><b>Plan</b><small>See your next steps</small></p></div>
+      <div><span class="stat-icon">✧</span><p><b>Grow</b><small>Build useful skills</small></p></div>
+    </section>
+
+    <section class="section section-center">
+      <span class="eyebrow">A CLEARER WAY FORWARD</span>
+      <h2>Make your next move <span>count.</span></h2>
+      <p class="section-intro">You don't need to have everything figured out. Start with what interests you.</p>
+      <div class="feature-grid">
+        <article class="feature-card"><div class="feature-icon icon-lilac">✦</div><h3>Career matches</h3><p>Explore career paths connected to the interests and skills you choose.</p><a href="{{ url_for('recommend') if user else url_for('register') }}">Find your match <span>→</span></a></article>
+        <article class="feature-card"><div class="feature-icon icon-peach">▤</div><h3>Learn the skills</h3><p>See useful skills and beginner-friendly course ideas for each career.</p><a href="{{ url_for('careers') }}">Explore options <span>→</span></a></article>
+        <article class="feature-card"><div class="feature-icon icon-mint">⌁</div><h3>Build a roadmap</h3><p>Follow simple milestones that turn a big goal into small actions.</p><a href="{{ url_for('careers') }}">View roadmaps <span>→</span></a></article>
+      </div>
+    </section>
+    <section class="bottom-cta"><div><span class="eyebrow">YOUR JOURNEY STARTS HERE</span><h2>Curious about what's next?</h2><p>Take a few minutes to explore a direction that feels right for you.</p></div><a class="button button-light" href="{{ url_for('recommend') if user else url_for('register') }}">Let's explore <span>→</span></a></section>
+  </main>
+  <footer class="site-footer"><a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">✦</span> CareerPath <span class="brand-ai">AI</span></a><span>Explore possibilities. Build your future.</span><span>© 2026 CareerPath AI</span></footer>
+</body>
+</html>
